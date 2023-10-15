@@ -1,14 +1,14 @@
 from pydantic import BaseModel
 from typing import List, Union
 
-class ItemBase(BaseModel):
+class TareaBase(BaseModel):
     title: str
     description: Union[str, None] = None
 
-class ItemCreate(ItemBase):
+class TareaCreate(TareaBase):
     pass
 
-class Item(ItemBase):
+class Tarea(TareaBase):
     id: int
     owner_id: int
 
@@ -24,7 +24,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
-    items: List[Item] = []
+    Tareas: List[Tarea] = []
 
     class Config:
         orm_mode = True

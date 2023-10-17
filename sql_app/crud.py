@@ -24,7 +24,9 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 def get_tareas(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Item).offset(skip).limit(limit).all()
+    return db.query(models.Tarea).offset(skip).limit(limit).all()
+
+
 
 def create_user_tarea(db: Session, tarea: schemas.TareaCreate, user_id: int):
     db_tarea = models.Tarea(**tarea.dict(), owner_id=user_id)
@@ -33,6 +35,7 @@ def create_user_tarea(db: Session, tarea: schemas.TareaCreate, user_id: int):
     db.refresh(db_tarea) 
     return db_tarea
 
+#eliminar usuario
 def delete_user(db: Session, user_id: int):
     user_to_delete = db.query(models.User).filter(models.User.id == user_id).first()
     

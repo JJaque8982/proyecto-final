@@ -2,11 +2,14 @@ from pydantic import BaseModel
 from typing import List, Union
 
 class TareaBase(BaseModel):
-    title: str
-    description: Union[str, None] = None
+    titulo: str
+    descripcion: Union[str, None] = None
+    
+    estado:bool
 
 class TareaCreate(TareaBase):
-    pass
+     pass
+   
 
 class Tarea(TareaBase):
     id: int

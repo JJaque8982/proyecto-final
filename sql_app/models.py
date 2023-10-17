@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Date, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Date, Integer, String
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -12,7 +12,7 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
-   
+    tareas = relationship("Tarea", back_populates="owner")
 
 
 class Tarea(Base):
@@ -23,6 +23,7 @@ class Tarea(Base):
     descripcion = Column(String, index=True)
     fecha_ven = Column(Date,index=True)
     estado = Column(Boolean, default=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
 
 
-    
+    owner = relationship("User", back_populates="tareas")

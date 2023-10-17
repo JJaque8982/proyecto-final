@@ -32,3 +32,14 @@ def create_user_tarea(db: Session, tarea: schemas.TareaCreate, user_id: int):
     db.commit()
     db.refresh(db_tarea) 
     return db_tarea
+
+def delete_user(db: Session, user_id: int):
+    user_to_delete = db.query(models.User).filter(models.User.id == user_id).first()
+    
+    if user_to_delete is None:
+        return None  # Opcional: manejar el caso en el que el usuario no existe
+
+    db.delete(user_to_delete)
+    db.commit()
+    return user_to_delete
+

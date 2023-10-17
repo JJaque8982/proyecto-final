@@ -13,7 +13,7 @@ class Tarea(TareaBase):
     owner_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserBase(BaseModel):
     email: str
@@ -27,4 +27,7 @@ class User(UserBase):
     Tareas: List[Tarea] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+class UserDelete(BaseModel):
+    detail: str

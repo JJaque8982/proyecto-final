@@ -35,9 +35,18 @@ class User(UserBase):
 class UserDelete(BaseModel):
     detail: str
 
-
+#actualizar tareas
 class TareaUpdate(BaseModel):
     titulo: Union[str, None] = None
     descripcion: Union[str, None] = None
     fecha_ven: Union[date, None] = None
     estado: Union[bool, None] = None
+
+#filtrar tareas segun su estado
+class TareaFilter(BaseModel):
+    estado: Optional[bool] = None  
+
+class TareaDelete(BaseModel):
+    detail: str
+
+  

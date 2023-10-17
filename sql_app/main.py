@@ -75,10 +75,23 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
-
 @app.put("/tareas/{tarea_id}", response_model=schemas.Tarea)
 def update_tarea(tarea_id: int, tarea_update: schemas.TareaUpdate, db: Session = Depends(get_db)):
     db_tarea = crud.update_tarea(db, tarea_id, tarea_update)
     if db_tarea is None:
         raise HTTPException(status_code=404, detail="Tarea encontrada")
     return db_tarea
+
+
+#eliminar tareas
+@app.delete("/tareas/{tarea_id}", response_model=schemas.TareaDelete)
+def delete_tarea(tarea_id: int , db: Session = Depends(get_db)):
+    # Verifica si la tarea existe
+    db_user = crud.get_tareas(db, tarea_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="tarea no encontrada")
+
+    # Elimina la tarea
+    crud.delete_tarea(db=db, tarea_id=tarea_id)
+
+    return {"detail":"Tarea eliminado satisfactoriamente"}

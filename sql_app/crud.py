@@ -41,8 +41,19 @@ def delete_user(db: Session, user_id: int):
     
     if user_to_delete is None:
         return None  # Opcional: manejar el caso en el que el usuario no existe
-
     db.delete(user_to_delete)
     db.commit()
     return user_to_delete
 
+
+def update_tarea(db: Session, tarea_id: int, tarea_update: schemas.TareaUpdate):
+    db_tarea = db.query(models.Tarea).filter(models.Tarea.id == tarea_id).first()
+
+    if db_tarea is None:
+        return None  # Opcional: manejar el caso en el que la tarea no existe
+    for field, value in tarea_update.dict().items():
+        setattr(db_tarea, field, value)
+
+    db.commit()
+    db.refresh(db_tarea)
+    return db_tarea

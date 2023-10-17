@@ -25,5 +25,4 @@ class Tarea(Base):
     estado = Column(Boolean, default=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
-
     owner = relationship("User", back_populates="tareas")

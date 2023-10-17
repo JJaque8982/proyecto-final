@@ -1,16 +1,16 @@
 from pydantic import BaseModel
-from typing import List, Union
+from typing import List, Union, Optional
+from datetime import date
 
 class TareaBase(BaseModel):
     titulo: str
     descripcion: Union[str, None] = None
-    
+    fecha_ven: date
     estado:bool
 
 class TareaCreate(TareaBase):
      pass
    
-
 class Tarea(TareaBase):
     id: int
     owner_id: int
@@ -34,3 +34,10 @@ class User(UserBase):
 
 class UserDelete(BaseModel):
     detail: str
+
+
+class TareaUpdate(BaseModel):
+    titulo: Union[str, None] = None
+    descripcion: Union[str, None] = None
+    fecha_ven: Union[date, None] = None
+    estado: Union[bool, None] = None

@@ -41,6 +41,9 @@ class TareaUpdate(BaseModel):
     descripcion: Union[str, None] = None
     fecha_ven: Union[date, None] = None
     estado: Union[bool, None] = None
+    
+class TareaEstadoUpdate(BaseModel):
+       estado: Union[bool, None] = None
 
 #filtrar tareas segun su estado
 class TareaFilter(BaseModel):

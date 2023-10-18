@@ -68,7 +68,7 @@ def delete_user(user_id: int , db: Session = Depends(get_db)):
 
 
 #solicitud get para listar tareas completadas
-@app.get("/Tarea/{user_id}", response_model=schemas.User)
+@app.get("/tarea/{user_id}", response_model=schemas.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, user_id=user_id)
     if db_user is None:
@@ -82,6 +82,12 @@ def update_tarea(tarea_id: int, tarea_update: schemas.TareaUpdate, db: Session =
         raise HTTPException(status_code=404, detail="Tarea encontrada")
     return db_tarea
 
+@app.put("/tareas_estado/{tarea_id}", response_model=schemas.Tarea)
+def update_tarea_estado(tarea_id: int, tarea_update: schemas.TareaEstadoUpdate, db: Session = Depends(get_db)):
+    db_tarea = crud.update_tarea_estado(db, tarea_id, tarea_update)
+    if db_tarea is None:
+        raise HTTPException(status_code=404, detail="Tarea encontrada")
+    return db_tarea
 
 #eliminar tareas
 @app.delete("/tareas/{tarea_id}", response_model=schemas.TareaDelete)

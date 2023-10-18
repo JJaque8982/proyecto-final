@@ -35,6 +35,19 @@ def create_user_tarea(db: Session, tarea: schemas.TareaCreate, user_id: int):
     db.refresh(db_tarea) 
     return db_tarea
 
+#actualizar datos de tarea
+def update_tarea(db: Session, tarea_id: int, tarea_update: schemas.TareaUpdate):
+    db_tarea = db.query(models.Tarea).filter(models.Tarea.id == tarea_id).first()
+
+    if db_tarea is None:
+        return None  # Opcional: manejar el caso en el que la tarea no existe
+    for field, value in tarea_update.dict().items():
+        setattr(db_tarea, field, value)
+
+    db.commit()
+    db.refresh(db_tarea)
+    return db_tarea
+
 #eliminar usuario
 def delete_user(db: Session, user_id: int):
     user_to_delete = db.query(models.User).filter(models.User.id == user_id).first()
@@ -45,8 +58,9 @@ def delete_user(db: Session, user_id: int):
     db.commit()
     return user_to_delete
 
-#actualizar datos de tarea
-def update_tarea(db: Session, tarea_id: int, tarea_update: schemas.TareaUpdate):
+
+#actualizar estado de tarea
+def update_tarea_estado(db: Session, tarea_id: int, tarea_update: schemas.TareaEstadoUpdate):
     db_tarea = db.query(models.Tarea).filter(models.Tarea.id == tarea_id).first()
 
     if db_tarea is None:

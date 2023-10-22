@@ -81,5 +81,5 @@ def delete_tarea(db: Session, tarea_id: int):
     db.commit()
     return tarea_to_delete
 #buscar tareas filtradas por estado
-def get_tarea(db: Session, user_id: int, estado: bool, skip: int = 0, limit: int = 100):
+def get_tarea(db: Session, user_id: int, skip: int = 0, limit: int = 100):
     return db.query(models.Tarea).filter(models.Tarea.owner_id == user_id).offset(skip).limit(limit).first()
